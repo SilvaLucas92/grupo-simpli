@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/Card";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { BsX } from "react-icons/bs";
 import { Products } from "@/types";
 import { FiltersModal } from "@/components/FiltersModal";
 import Select from "@/components/Select";
@@ -20,11 +20,7 @@ export default function Home() {
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(5);
-  const [filters, setFilters] = useState<Record<string, any>>({
-    category: "",
-    greater: "",
-    less: "",
-  });
+  const [filters, setFilters] = useState<Record<string, any> | null>(null);
 
   const apiCall = async () => {
     setIsLoading(true);
@@ -52,6 +48,16 @@ export default function Home() {
     setPerPage(Number(e));
   };
 
+  const deleteFilter = (name: string) => {
+    let newFilters = {};
+    for (let key in filters) {
+      if (key !== name) {
+        (newFilters as Record<string, any>)[key] = filters[key];
+      }
+    }
+    setFilters(newFilters);
+  };
+
   return (
     <>
       <Head>
@@ -64,6 +70,23 @@ export default function Home() {
         <Layout>
           <div className={styles.filters}>
             <button onClick={() => setOpen(!open)}>Filters</button>
+          </div>
+
+          <div className={styles.badgeContainer}>
+            {filters &&
+              Object.keys(filters).map((filter) => (
+                <div className={styles.badge} key={filter}>
+                  <div>
+                    <span>{filter}</span>: <span>{filters[filter]}</span>
+                  </div>
+                  <span
+                    className={styles.badgeBTN}
+                    onClick={() => deleteFilter(filter)}
+                  >
+                    <BsX />
+                  </span>
+                </div>
+              ))}
           </div>
 
           {isLoading ? (

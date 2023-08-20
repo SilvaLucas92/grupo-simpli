@@ -5,7 +5,7 @@ import styles from "./filters.module.css";
 import Select from "../Select";
 
 interface FiltersProps {
-  filters: Record<string, any>;
+  filters: Record<string, any> | null;
   setFilters: any;
   onClose: (value: boolean) => void;
 }
@@ -15,7 +15,6 @@ export const FiltersModal = ({
   setFilters,
   onClose,
 }: FiltersProps) => {
-  
   const [formState, setFormState] = useState({
     category: filters && filters.category ? filters.category : "",
     less: filters && filters.less ? filters.less : "",
@@ -27,6 +26,18 @@ export const FiltersModal = ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const onSave = (form: Record<string, any>) => {
+    let newFilters: Record<string, any> = {}; // Inicializa newFilters como un objeto vacío
+    for (let key in form) {
+      const value = form[key];
+      if (value !== "") {
+        newFilters[key] = value; // Actualiza directamente newFilters con la propiedad y valor filtrado
+      }
+    }
+    setFilters(newFilters);
+    onClose(false);
   };
 
   return (
@@ -65,13 +76,7 @@ export const FiltersModal = ({
         />
       </div>
 
-      <button
-        onClick={() => {
-          setFilters(formState);
-          onClose(false);
-        }}
-        className={styles.btn}
-      >
+      <button onClick={() => onSave(formState)} className={styles.btn}>
         save
       </button>
     </Modal>

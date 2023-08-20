@@ -5,3 +5,5 @@ export const Spinner = () => (
     <span className={styles.loader}></span>
   </div>
 );
+
+export const SpinnerBtn = () => <span className={styles.loaderBTN}></span>;

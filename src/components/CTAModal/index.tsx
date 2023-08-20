@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./modal.module.css";
 import { Leads } from "@/types";
 import { postLeads } from "@/services/leads";
+import { SpinnerBtn } from "../Spinner";
 
 interface CTAProps {
   onClose: (value: boolean) => void;
@@ -42,20 +43,21 @@ export const CTAModal = ({ onClose }: CTAProps) => {
     }
     setIsLoading(true);
     try {
-      const data = postLeads(payload);
+      postLeads(payload);
+      setMsg({
+        type: "success",
+        msg: "CTA submitted",
+      });
+      setIsLoading(false);
       setFormState({
         name: "",
         lastname: "",
         email: "",
         description: "",
       });
-      setIsLoading(false);
-      setMsg({
-        type: "success",
-        msg: "CTA submitted",
-      });
     } catch (err) {
       alert("Something went wrong!");
+      setIsLoading(false);
     }
   };
 
@@ -86,7 +88,7 @@ export const CTAModal = ({ onClose }: CTAProps) => {
           <div className={styles.textContainer}>
             <label>CTA</label>
             <textarea
-              placeholder="Enter CTA here"
+              // placeholder="Enter CTA here"
               className={styles.textarea}
               onChange={(e) => handleInput(e)}
               value={formState.description}
@@ -102,7 +104,7 @@ export const CTAModal = ({ onClose }: CTAProps) => {
               {msg.msg}
             </p>
           )}
-          <button type="submit">Submit</button>
+          <button type="submit">{isLoading ? <SpinnerBtn /> : "Submit"}</button>
         </section>
       </form>
     </Modal>
