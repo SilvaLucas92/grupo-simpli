@@ -21,8 +21,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    const actualPage = parseInt(page as string) || 1;
-    const itemsPerPage = parseInt(perPage as string) || 10;
+    const actualPage = parseInt(page as string);
+    const itemsPerPage = parseInt(perPage as string);
     const skip = (actualPage - 1) * itemsPerPage;
 
     await connectMongoDB();

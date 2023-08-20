@@ -5,18 +5,42 @@ import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/Card";
+import { Modal } from "@/components/Modal";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { Products } from "@/types";
+import { Input } from "@/components/Input";
+import { FiltersModal } from "@/components/FiltersModal";
+import Select from "@/components/Select";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((res) => setData(res.items))
-      .catch((er) => console.log(er));
-  }, []);
+  const [data, setData] = useState<Products | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [perPage, setPerPage] = useState<number>(5);
+  const [filters, setFilters] = useState<Record<string, any>>({
+    category: "",
+    greater: "",
+    less: "",
+  });
 
+  useEffect(() => {
+    fetch(
+      `/api/products?page=${page}&perPage=${perPage}&${new URLSearchParams({
+        ...filters,
+      }).toString()}`
+    )
+      .then((res) => res.json())
+      .then((res) => setData(res))
+      .catch((er) => console.log(er));
+  }, [filters, page, perPage]);
+
+  const handleSelect = (e: string) => {
+    setPerPage(Number(e));
+  };
+
+  console.log(perPage)
   return (
     <>
       <Head>
@@ -25,18 +49,61 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout >
-        <section className={styles.grid} >
-          {data && data?.map((item: any) => (
-            <Card
-              key={item?.id}
-              title={item?.title}
-              price={item?.price}
-              image={item?.img}
+      <main className={inter.className}>
+        <Layout>
+          <div className={styles.filters}>
+            <button onClick={() => setOpen(!open)}>Filters</button>
+          </div>
+
+          <section className={styles.grid}>
+            {data &&
+              data?.items?.map((item: any) => (
+                <Card
+                  key={item?.id}
+                  title={item?.title}
+                  price={item?.price}
+                  image={item?.img}
+                />
+              ))}
+          </section>
+          <div className={styles.pagination}>
+            <div className={styles.selectContainer}>
+              <Select
+                onChange={(e) => handleSelect(e)}
+                value={perPage}
+                data={[
+                  { label: "5", value: 5 },
+                  { label: "10", value: 10 },
+                ]}
+              />
+            </div>
+            <div className={styles.pagesContainer}>
+              <button
+                onClick={() => {
+                  data && data?.prev_page ? setPage(page - 1) : 1;
+                }}
+              >
+                <AiOutlineArrowLeft />
+              </button>
+              <span>{page}</span>
+              <button
+                onClick={() => {
+                  data && data?.next_page ? setPage(page + 1) : page;
+                }}
+              >
+                <AiOutlineArrowRight />
+              </button>
+            </div>
+          </div>
+          {open && (
+            <FiltersModal
+              onClose={setOpen}
+              filters={filters}
+              setFilters={setFilters}
             />
-          ))}
-        </section>
-      </Layout>
+          )}
+        </Layout>
+      </main>
     </>
   );
 }

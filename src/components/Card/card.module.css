@@ -1,6 +1,6 @@
 /* ProductCard.module.css */
 .card {
-  padding: 2px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,13 +20,13 @@
 }
 
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
 }
 
 .card p {
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   color: gray;
   margin: 0;
@@ -34,10 +34,22 @@
 
 .card button {
   margin: 1rem 0;
-  width: 180px;
+  width: 100%;
   height: 40px;
   background-color: blueviolet;
   color: white;
   border: none;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card {
+    width: 30%;
+  }
 }
