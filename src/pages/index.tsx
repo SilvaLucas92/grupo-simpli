@@ -5,10 +5,8 @@ import styles from "@/styles/Home.module.css";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/Card";
-import { Modal } from "@/components/Modal";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { Products } from "@/types";
-import { Input } from "@/components/Input";
 import { FiltersModal } from "@/components/FiltersModal";
 import Select from "@/components/Select";
 
@@ -40,7 +38,6 @@ export default function Home() {
     setPerPage(Number(e));
   };
 
-  console.log(perPage)
   return (
     <>
       <Head>
@@ -59,10 +56,11 @@ export default function Home() {
             {data &&
               data?.items?.map((item: any) => (
                 <Card
-                  key={item?.id}
+                  key={item?._id}
                   title={item?.title}
                   price={item?.price}
                   image={item?.img}
+                  id={item?._id}
                 />
               ))}
           </section>

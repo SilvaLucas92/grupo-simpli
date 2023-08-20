@@ -32,19 +32,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
 }
 
 .selectContainer {
   width: 20%;
   min-height: 40px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .pagesContainer {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
   width: 50%;

@@ -1,5 +1,4 @@
 .header {
-  border: 1px solid red;
   width: 100%;
 }
 
@@ -18,9 +17,3 @@
     margin: auto;
   }
 }
-
-/* @media (min-width: 1200px) {
-  .container {
-    width: 60%;
-  }
-} */

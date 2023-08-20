@@ -9,8 +9,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   try {
     const { id } = req.query;
+    console.log(id);
     await connectMongoDB();
-    const data = await Products.find({ id });
+    const data = await Products.find({ _id: id }); // Corregir esta línea
     res.status(200).json(data);
   } catch (err) {
     res.status(400).json({ err, msg: "Something went wrong" });
