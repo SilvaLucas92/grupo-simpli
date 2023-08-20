@@ -1,14 +1,58 @@
-.image {
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 80vh;
+}
+
+.container span {
+  cursor: pointer;
+}
+
+.container img {
   width: 100%;
   max-width: 300px;
   margin: 0 0 0.5rem 0;
 }
 
-.container {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dataContainer h3 {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.dataContainer p {
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: gray;
+}
+
+.dataContainer button {
+  margin: 1rem 0;
+  width: 100%;
+  height: 40px;
+  background-color: blueviolet;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    gap: 3rem;
+    width: 80%;
+    margin: auto;
+  }
+  .dataContainer {
+    width: 50%;
+  }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Input } from "../Input";
 import { Modal } from "../Modal";
 import styles from "./filters.module.css";
@@ -15,11 +15,20 @@ export const FiltersModal = ({
   setFilters,
   onClose,
 }: FiltersProps) => {
+  
   const [formState, setFormState] = useState({
     category: filters && filters.category ? filters.category : "",
     less: filters && filters.less ? filters.less : "",
     greater: filters && filters.greater ? filters.greater : "",
   });
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <Modal title="Filters" onClose={onClose}>
       <div className={styles.modalSections}>
@@ -41,24 +50,16 @@ export const FiltersModal = ({
       </div>
       <div className={styles.modalSections}>
         <Input
-          onChange={(e) =>
-            setFormState((prev: any) => ({
-              ...prev,
-              greater: e,
-            }))
-          }
+          name="greater"
+          onChange={(e) => handleInput(e)}
           value={formState.greater}
           label="Price greater than"
         />
       </div>
       <div className={styles.modalSections}>
         <Input
-          onChange={(e) =>
-            setFormState((prev: any) => ({
-              ...prev,
-              less: e,
-            }))
-          }
+          name="less"
+          onChange={(e) => handleInput(e)}
           value={formState.less}
           label="Price less than"
         />

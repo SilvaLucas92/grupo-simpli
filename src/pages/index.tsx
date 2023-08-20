@@ -9,10 +9,13 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { Products } from "@/types";
 import { FiltersModal } from "@/components/FiltersModal";
 import Select from "@/components/Select";
+import { getAllProducts } from "@/services/products";
+import { Spinner } from "@/components/Spinner";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<Products | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -23,15 +26,26 @@ export default function Home() {
     less: "",
   });
 
+  const apiCall = async () => {
+    setIsLoading(true);
+    try {
+      const url = `/api/products?page=${page}&perPage=${perPage}&${new URLSearchParams(
+        {
+          ...filters,
+        }
+      ).toString()}`;
+      const res = await getAllProducts(url);
+      setData(res);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch(
-      `/api/products?page=${page}&perPage=${perPage}&${new URLSearchParams({
-        ...filters,
-      }).toString()}`
-    )
-      .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((er) => console.log(er));
+    apiCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, page, perPage]);
 
   const handleSelect = (e: string) => {
@@ -52,18 +66,22 @@ export default function Home() {
             <button onClick={() => setOpen(!open)}>Filters</button>
           </div>
 
-          <section className={styles.grid}>
-            {data &&
-              data?.items?.map((item: any) => (
-                <Card
-                  key={item?._id}
-                  title={item?.title}
-                  price={item?.price}
-                  image={item?.img}
-                  id={item?._id}
-                />
-              ))}
-          </section>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <section className={styles.grid}>
+              {data &&
+                data?.items?.map((item: any) => (
+                  <Card
+                    key={item?._id}
+                    title={item?.title}
+                    price={item?.price}
+                    image={item?.img}
+                    id={item?._id}
+                  />
+                ))}
+            </section>
+          )}
           <div className={styles.pagination}>
             <div className={styles.selectContainer}>
               <Select

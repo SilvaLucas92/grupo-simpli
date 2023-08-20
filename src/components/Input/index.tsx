@@ -1,21 +1,24 @@
+import { ChangeEvent } from "react";
 import styles from "./input.module.css";
 
 interface InputProps {
   value: any;
-  onChange: (value: string | number) => void;
+  onChange: (value: ChangeEvent<HTMLInputElement>) => void;
   label: string;
+  name: string;
 }
 
-export const Input = ({ value, onChange, label }: InputProps) => {
+export const Input = ({ value, onChange, label, name }: InputProps) => {
   return (
     <div className={styles.container}>
       <label>{label}</label>
       <input
         placeholder="Enter text here"
         className={styles.inputStyle}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e)}
         value={value}
         type="text"
+        name={name}
       />
     </div>
   );
