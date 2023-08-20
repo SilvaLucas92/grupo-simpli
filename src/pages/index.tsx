@@ -115,7 +115,7 @@ export default function Home() {
                   { label: "10", value: 10 },
                 ]}
               />
-              {'  '}
+              {"  "}
               <span>Total Items: {data?.total}</span>
             </div>
             <div className={styles.pagesContainer}>
@@ -126,7 +126,9 @@ export default function Home() {
               >
                 <AiOutlineArrowLeft />
               </button>
-              <span>{page} of {data?.total_pages}</span>
+              <span>
+                {page} of {data?.total_pages}
+              </span>
               <button
                 onClick={() => {
                   data && data?.next_page ? setPage(page + 1) : page;

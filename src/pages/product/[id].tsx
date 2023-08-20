@@ -42,7 +42,7 @@ const Product = () => {
             <span onClick={() => push("/")}>Back to catalog</span>
             <h3>{data?.title}</h3>
             <p>${data?.price}</p>
-            <p>Description</p>
+            <h4 className={styles.description}>Description</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
               cupiditate. Fuga distinctio repudiandae, ipsa vel incidunt,

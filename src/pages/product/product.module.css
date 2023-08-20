@@ -6,6 +6,7 @@
   align-items: center;
   gap: 0.5rem;
   min-height: 80vh;
+  margin-bottom: 2rem;
 }
 
 .container span {
@@ -23,10 +24,19 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+.dataContainer span {
+  color: gray;
+  font-weight: 400;
+}
 
 .dataContainer h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.description {
   font-weight: 500;
-  font-size: 1rem;
+  color: black;
 }
 
 .dataContainer p {
@@ -48,7 +58,6 @@
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
-    gap: 3rem;
     width: 100%;
     margin: auto;
   }
@@ -56,7 +65,6 @@
     width: 50%;
   } */
 }
-
 
 @media (min-width: 768px) {
   .container {
