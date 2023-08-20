@@ -41,11 +41,11 @@
 .title button {
   cursor: pointer;
   font-weight: 500;
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 50%;
+  font-size: 1.25rem;
   border: none;
   transition: all 0.25s ease;
-  padding: 8px;
+  padding: 0.25rem;
 }
 
 .container {
