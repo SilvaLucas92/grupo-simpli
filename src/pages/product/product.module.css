@@ -49,10 +49,23 @@
   .container {
     flex-direction: row;
     gap: 3rem;
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
-  .dataContainer {
+  /* .dataContainer {
     width: 50%;
+  } */
+}
+
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    gap: 3rem;
+    width: 70%;
+    margin: auto;
   }
+  /* .dataContainer {
+    width: 50%;
+  } */
 }

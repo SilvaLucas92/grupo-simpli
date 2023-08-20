@@ -15,3 +15,10 @@ export interface Products {
   prev_page: number | null;
   next_page: number | null;
 }
+
+export interface Leads {
+  name: string;
+  lastname: string;
+  email: string;
+  description: string;
+}
