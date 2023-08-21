@@ -8,8 +8,6 @@ import styles from "./product.module.css";
 import { useRouter } from "next/router";
 import { CTAModal } from "@/components/CTAModal";
 
-const inter = Inter({ subsets: ["latin"] });
-
 const Product = () => {
   const { query, push } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
@@ -33,28 +31,21 @@ const Product = () => {
   }, [query.id]);
 
   return (
-    <main className={inter.className}>
-      <Layout>
-        {isLoading && <Spinner />}
-        <section className={styles.container}>
-          <img src={data?.img} alt={data?.title} />
-          <div className={styles.dataContainer}>
-            <span onClick={() => push("/")}>Back to catalog</span>
-            <h3>{data?.title}</h3>
-            <p>${data?.price}</p>
-            <h4 className={styles.description}>Description</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              cupiditate. Fuga distinctio repudiandae, ipsa vel incidunt,
-              accusamus atque optio reprehenderit magni nostrum est. Aspernatur
-              numquam dignissimos officiis facere quos necessitatibus.
-            </p>
-            <button onClick={() => setOpen(true)}>CTA</button>
-          </div>
-        </section>
-        {open && <CTAModal onClose={setOpen} />}
-      </Layout>
-    </main>
+    <Layout>
+      {isLoading && <Spinner />}
+      <section className={styles.container}>
+        <img src={data?.img} alt={data?.title} />
+        <div className={styles.dataContainer}>
+          <span onClick={() => push("/")}>Back to catalog</span>
+          <h3>{data?.title}</h3>
+          <p>${data?.price}</p>
+          <h4 className={styles.description}>Description</h4>
+          <p>{data?.description}</p>
+          <button onClick={() => setOpen(true)}>CTA</button>
+        </div>
+      </section>
+      {open && <CTAModal onClose={setOpen} />}
+    </Layout>
   );
 };
 

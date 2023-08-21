@@ -32,13 +32,6 @@ const Footer = () => {
           ))}
         </ul>
       </div>
-      <div>
-        <ul className={styles.ul}>
-          {bikesInfo.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
     </footer>
   );
 };
