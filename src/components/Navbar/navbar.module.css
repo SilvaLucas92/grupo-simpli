@@ -4,7 +4,6 @@
 }
 
 .container {
-
   padding: 1rem;
 }
 
@@ -16,5 +15,8 @@
   .container {
     width: 80%;
     margin: auto;
+  }
+  .container {
+    padding: 1rem 2rem;
   }
 }
