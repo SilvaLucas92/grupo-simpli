@@ -35,7 +35,7 @@ export const CTAModal = ({ onClose }: CTAProps) => {
   const onSubmit = async (e: React.FormEvent, payload: Leads) => {
     e.preventDefault();
     const anyEmpty = Object.keys(payload).some(
-      (item) => !(payload as any)[item]
+      (item) => !(payload as Record<string, any>)[item]
     );
     if (anyEmpty) {
       setMsg({ type: "error", msg: "All fields are required" });

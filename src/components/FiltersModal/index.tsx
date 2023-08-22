@@ -6,14 +6,16 @@ import Select from "../Select";
 
 interface FiltersProps {
   filters: Record<string, any> | null;
-  setFilters: any;
+  setFilters: (value: Record<string, any>) => void;
   onClose: (value: boolean) => void;
+  setPage: (value: number) => void;
 }
 
 export const FiltersModal = ({
   filters,
   setFilters,
   onClose,
+  setPage,
 }: FiltersProps) => {
   const [formState, setFormState] = useState({
     category: filters && filters.category ? filters.category : "",
@@ -37,6 +39,7 @@ export const FiltersModal = ({
       }
     }
     setFilters(newFilters);
+    setPage(1);
     onClose(false);
   };
 

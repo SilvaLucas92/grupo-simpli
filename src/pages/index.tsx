@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/Card";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BsX } from "react-icons/bs";
-import { Products } from "@/types";
+import { Item, Products } from "@/types";
 import { FiltersModal } from "@/components/FiltersModal";
 import Select from "@/components/Select";
 import { getAllProducts } from "@/services/products";
@@ -44,6 +44,7 @@ export default function Home() {
 
   const handleSelect = (e: string) => {
     setPerPage(Number(e));
+    setPage(1);
   };
 
   const deleteFilter = (name: string) => {
@@ -54,6 +55,7 @@ export default function Home() {
       }
     }
     setFilters(newFilters);
+    setPage(1);
   };
 
   return (
@@ -92,7 +94,7 @@ export default function Home() {
           <>
             <section className={styles.grid}>
               {data &&
-                data?.items?.map((item: any) => (
+                data?.items?.map((item: Item) => (
                   <Card
                     key={item?._id}
                     title={item?.title}
@@ -142,6 +144,7 @@ export default function Home() {
             onClose={setOpen}
             filters={filters}
             setFilters={setFilters}
+            setPage={setPage}
           />
         )}
       </Layout>
