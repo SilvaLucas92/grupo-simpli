@@ -18,9 +18,9 @@ export const FiltersModal = ({
   setPage,
 }: FiltersProps) => {
   const [formState, setFormState] = useState({
-    category: filters && filters.category ? filters.category : "",
-    less: filters && filters.less ? filters.less : "",
-    greater: filters && filters.greater ? filters.greater : "",
+    category: filters?.category || "",
+    less: filters?.less || "",
+    greater: filters?.greater || "",
   });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,11 +31,11 @@ export const FiltersModal = ({
   };
 
   const onSave = (form: Record<string, any>) => {
-    let newFilters: Record<string, any> = {}; // Inicializa newFilters como un objeto vacío
+    let newFilters: Record<string, any> = {};
     for (let key in form) {
       const value = form[key];
       if (value !== "") {
-        newFilters[key] = value; // Actualiza directamente newFilters con la propiedad y valor filtrado
+        newFilters[key] = value;
       }
     }
     setFilters(newFilters);
