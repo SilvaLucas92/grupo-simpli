@@ -10,12 +10,16 @@ interface ModalProps {
 
 export const Modal = ({ title, onClose, children }: ModalProps) => {
   return (
-    <div className={styles.darkBG}>
+    <div className={styles.darkBG} role="dialog">
       <div className={styles.centered}>
         <div className={styles.modal}>
           <div className={styles.title}>
             <p>{title}</p>
-            <button className={styles.closeBtn} onClick={() => onClose(false)}>
+            <button
+              data-testid="close-button"
+              className={styles.closeBtn}
+              onClick={() => onClose(false)}
+            >
               <RiCloseLine style={{ marginBottom: "-3px" }} />
             </button>
           </div>

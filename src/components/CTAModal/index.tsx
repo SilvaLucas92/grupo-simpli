@@ -43,7 +43,10 @@ export const CTAModal = ({ onClose }: CTAProps) => {
     }
     setIsLoading(true);
     try {
-      postLeads(payload);
+      const data = await postLeads(payload);
+      if (data.status !== 201) {
+        setMsg({ type: "error", msg: "Something went wrong!" });
+      }
       setMsg({
         type: "success",
         msg: "CTA submitted",
@@ -56,7 +59,8 @@ export const CTAModal = ({ onClose }: CTAProps) => {
         description: "",
       });
     } catch (err) {
-      alert("Something went wrong!");
+      // alert("Something went wrong!");
+      setMsg({ type: "error", msg: "Something went wrong!" });
       setIsLoading(false);
     }
   };
@@ -86,13 +90,14 @@ export const CTAModal = ({ onClose }: CTAProps) => {
             name="email"
           />
           <div className={styles.textContainer}>
-            <label>CTA</label>
+            <label htmlFor="description">CTA</label>
             <textarea
               // placeholder="Enter CTA here"
               className={styles.textarea}
               onChange={(e) => handleInput(e)}
               value={formState.description}
               name={"description"}
+              id={"description"}
             />
           </div>
           {msg && (

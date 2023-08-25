@@ -11,7 +11,7 @@ interface InputProps {
 export const Input = ({ value, onChange, label, name }: InputProps) => {
   return (
     <div className={styles.container}>
-      <label>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input
         placeholder="Enter text here"
         className={styles.inputStyle}
@@ -19,6 +19,7 @@ export const Input = ({ value, onChange, label, name }: InputProps) => {
         value={value}
         type="text"
         name={name}
+        id={name}
       />
     </div>
   );
