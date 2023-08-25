@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     connectMongoDB();
     Leads.create(req.body).then((data) => {
-      res.status(201).send(data);
+      res.status(200).send(data);
     });
   } catch (err) {
     res.status(400).json({ err, msg: "Something went wrong222" });

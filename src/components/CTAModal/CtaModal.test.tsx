@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import { CTAModal } from "./index";
 import axios from "axios";
+
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 

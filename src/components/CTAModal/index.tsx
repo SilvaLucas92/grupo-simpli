@@ -44,19 +44,19 @@ export const CTAModal = ({ onClose }: CTAProps) => {
     setIsLoading(true);
     try {
       const data = await postLeads(payload);
-      if (data.status !== 201) {
+      if (data.status !== 200) {
         setMsg({ type: "error", msg: "Something went wrong!" });
       }
-      setMsg({
-        type: "success",
-        msg: "CTA submitted",
-      });
       setIsLoading(false);
       setFormState({
         name: "",
         lastname: "",
         email: "",
         description: "",
+      });
+      setMsg({
+        type: "success",
+        msg: "CTA submitted",
       });
     } catch (err) {
       // alert("Something went wrong!");
