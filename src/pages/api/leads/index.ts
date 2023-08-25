@@ -4,16 +4,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
-    res.status(405).json({ error: "Only post allowed" });
-    return;
+    return res.status(405).json({ error: "Only post allowed" });
   }
   try {
-    connectMongoDB();
-    Leads.create(req.body).then((data) => {
-      res.status(200).send(data);
-    });
+    await connectMongoDB();
+    const createdLead = await Leads.create(req.body);
+    return res.status(200).json(createdLead);
   } catch (err) {
-    res.status(400).json({ err, msg: "Something went wrong222" });
+    return res.status(400).json({ err, msg: "Something went wrong" });
   }
 };
 
