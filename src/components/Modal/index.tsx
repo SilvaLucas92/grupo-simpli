@@ -16,7 +16,7 @@ export const Modal = ({ title, onClose, children }: ModalProps) => {
           <div className={styles.title}>
             <p>{title}</p>
             <button
-              data-testid="close-button"
+              role="close-button"
               className={styles.closeBtn}
               onClick={() => onClose(false)}
             >

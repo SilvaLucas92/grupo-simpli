@@ -12,7 +12,7 @@ describe("Home component", () => {
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTestId("close-button"));
+    fireEvent.click(screen.getByRole("close-button"));
 
     expect(screen.queryByRole("dialog")).toBeNull();
   });
